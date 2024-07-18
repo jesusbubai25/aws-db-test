@@ -29,7 +29,7 @@ async function run() {
           energyGeneration: e?.dayEnergy,
           powerGeneration: e?.power,
         });
-        console.log("Document created ");
+        // console.log("Document created ");
       }
     } else {
       // console.log("Error: data not found from api");
