@@ -42,32 +42,32 @@ async function run() {
   }
 }
 
-setInterval(() => {
-  run();
-}, 10000);
+// setInterval(() => {
+//   run();
+// }, 10000);
 
-// let job1 = null;
+let job1 = null;
 
-// const job2 = schedule.scheduleJob("0 0 13 * * *", function () {
-//   if (job1) {
-//     console.log("Fetching plant data job has already been started");
-//   } else {
-//     console.log("Fetching plant data job has been started");
-//     job1 = schedule.scheduleJob("*/5 * * * *", function () {
-//       run();
-//     });
-//   }
-// });
+const job2 = schedule.scheduleJob("0 40 13 * * *", function () {
+  if (job1) {
+    console.log("Fetching plant data job has already been started");
+  } else {
+    console.log("Fetching plant data job has been started");
+    job1 = schedule.scheduleJob("*/5 * * * *", function () {
+      run();
+    });
+  }
+});
 
-// const job3 = schedule.scheduleJob("0 5 18 * * *", function () {
-//   if (job1) {
-//     job1.cancel();
-//     job1 = null;
-//     console.log("Fetching plant data job has been cancelled");
-//   } else {
-//     console.log("Fetching plant data job has not been started yet");
-//   }
-// });
+const job3 = schedule.scheduleJob("0 5 18 * * *", function () {
+  if (job1) {
+    job1.cancel();
+    job1 = null;
+    console.log("Fetching plant data job has been cancelled");
+  } else {
+    console.log("Fetching plant data job has not been started yet");
+  }
+});
 
 app.get("/data", async (req, res) => {
   res.status(200).json({ message: "Getting response", sucess: true });
