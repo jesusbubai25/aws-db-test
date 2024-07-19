@@ -17,22 +17,22 @@ connectToDatabase();
 
 async function run() {
   try {
-    // console.log("wait fetching api");
+    console.log("wait fetching api");
     const res = await fetchApi(userStationList);
     let data = res?.page?.records;
     if (data) {
-      // console.log("Data got from api");
-      // console.log("Data size is ", data?.length);
+      console.log("Data got from api");
+      console.log("Data size is ", data?.length);
       for (let e of data) {
         await Plant.create({
           timeStamp: e?.dataTimestampStr,
           energyGeneration: e?.dayEnergy,
           powerGeneration: e?.power,
         });
-        // console.log("Document created ");
+        console.log("Document created ");
       }
     } else {
-      // console.log("Error: data not found from api");
+      console.log("Error: data not found from api");
     }
   } catch (error) {
     console.log(
@@ -42,36 +42,37 @@ async function run() {
   }
 }
 
-setInterval(() => {
-  // run();
-  console.log("inside timeout")
-}, 10000);
-schedule.scheduleJob("*/10 * * * * *",  ()=>{
-  console.log("inside shedule job ",new Date())
-})
+// setInterval(() => {
+//   // run();
+//   console.log("inside timeout")
+// }, 10000);
+// schedule.scheduleJob("*/10 * * * * *",  ()=>{
+//   console.log("inside shedule job ",new Date())
+// })
 
-// let job1 = null;
+let job1 = null;
 
-// const job2 = schedule.scheduleJob("0 0 15 * * *", function () {
-//   if (job1) {
-//     console.log("Fetching plant data job has already been started");
-//   } else {
-//     console.log("Fetching plant data job has been started");
-//     job1 = schedule.scheduleJob("*/5 * * * *", function () {
-//       run();
-//     });
-//   }
-// });
+const job2 = schedule.scheduleJob("0 5 1 * * *", function () {
+  if (job1) {
+    console.log("Fetching plant data job has already been started");
+  } else {
+    console.log("Fetching plant data job has been started");
+    job1 = schedule.scheduleJob("*/1 * * * *", function () {
+      console.log("invoking run!")
+      run();
+    });
+  }
+});
 
-// const job3 = schedule.scheduleJob("0 15 15 * * *", function () {
-//   if (job1) {
-//     job1.cancel();
-//     job1 = null;
-//     console.log("Fetching plant data job has been cancelled");
-//   } else {
-//     console.log("Fetching plant data job has not been started yet");
-//   }
-// });
+const job3 = schedule.scheduleJob("0 10 1 * * *", function () {
+  if (job1) {
+    job1.cancel();
+    job1 = null;
+    console.log("Fetching plant data job has been cancelled");
+  } else {
+    console.log("Fetching plant data job has not been started yet");
+  }
+});
 
 app.get("/data", async (req, res) => {
   res.status(200).json({ message: "Getting response", sucess: true });
