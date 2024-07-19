@@ -42,41 +42,42 @@ async function run() {
   }
 }
 
-setInterval(() => {
-  run();
-}, 10000);
+// setInterval(() => {
+//   run();
+// }, 10000);
 
-// const rule1 = new schedule.RecurrenceRule();
-// const rule2 = new schedule.RecurrenceRule();
-// rule1.tz = 'Etc/UTC';
-// rule2.tz='Etc/UTC'
-// rule1.minute=1
-// rule1.hour=20;
-// rule2.minute=5;
-// rule2.hour=20;
+const rule1 = new schedule.RecurrenceRule();
+const rule2 = new schedule.RecurrenceRule();
+rule1.tz = 'Etc/UTC';
+rule2.tz='Etc/UTC'
+rule1.hour=1;
+rule1.minute=25
 
-// let job1 = null;
+rule2.hour=13;
+rule2.minute=5;
 
-// schedule.scheduleJob(rule1, function () {
-//   if (job1) {
-//     console.log("Fetching plant data job has already been started");
-//   } else {
-//     console.log("Fetching plant data job has been started");
-//     job1 = schedule.scheduleJob("*/1 * * * *", function () {
-//       run();
-//     });
-//   }
-// });
+let job1 = null;
 
-// schedule.scheduleJob(rule2, function () {
-//   if (job1) {
-//     job1.cancel();
-//     job1 = null;
-//     console.log("Fetching plant data job has been cancelled");
-//   } else {
-//     console.log("Fetching plant data job has not been started yet");
-//   }
-// });
+schedule.scheduleJob(rule1, function () {
+  if (job1) {
+    console.log("Fetching plant data job has already been started");
+  } else {
+    console.log("Fetching plant data job has been started");
+    job1 = schedule.scheduleJob("*/5 * * * *", function () {
+      run();
+    });
+  }
+});
+
+schedule.scheduleJob(rule2, function () {
+  if (job1) {
+    job1.cancel();
+    job1 = null;
+    console.log("Fetching plant data job has been cancelled");
+  } else {
+    console.log("Fetching plant data job has not been started yet");
+  }
+});
 
 app.get("/data", async (req, res) => {
   res.status(200).json({ message: "Getting response", sucess: true });
