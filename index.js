@@ -52,19 +52,19 @@ async function run() {
 
 let job1 = null;
 
-const job2 = schedule.scheduleJob("0 5 1 * * *", function () {
+schedule.scheduleJob("0 10 1 * * *", function () {
   if (job1) {
     console.log("Fetching plant data job has already been started");
   } else {
     console.log("Fetching plant data job has been started");
     job1 = schedule.scheduleJob("*/1 * * * *", function () {
       console.log("invoking run!")
-      run();
+      // run();
     });
   }
 });
 
-const job3 = schedule.scheduleJob("0 10 1 * * *", function () {
+schedule.scheduleJob("0 12 1 * * *", function () {
   if (job1) {
     job1.cancel();
     job1 = null;
