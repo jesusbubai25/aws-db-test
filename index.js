@@ -45,14 +45,24 @@ async function run() {
 // setInterval(() => {
 //   // run();
 //   console.log("inside timeout")
-// }, 10000);
-schedule.scheduleJob("*/10 * * * * *",  ()=>{
-  console.log("inside shedule job ",new Date())
-})
+// // }, 10000);
+// schedule.scheduleJob("*/10 * * * * *",  ()=>{
+//   console.log("inside shedule job ",new Date())
+// })
+
+const rule1 = new schedule.RecurrenceRule();
+const rule2 = new schedule.RecurrenceRule();
+rule1.tz = 'Etc/UTC';
+rule2.tz='Etc/UTC'
+rule1.minute=59
+rule1.hour=19;
+rule2.minute=5;
+rule2.hour=20;
+
 
 let job1 = null;
 
-schedule.scheduleJob("0 10 1 * * *", function () {
+schedule.scheduleJob(rule1, function () {
   if (job1) {
     console.log("Fetching plant data job has already been started");
   } else {
@@ -64,7 +74,7 @@ schedule.scheduleJob("0 10 1 * * *", function () {
   }
 });
 
-schedule.scheduleJob("0 12 1 * * *", function () {
+schedule.scheduleJob(rule2, function () {
   if (job1) {
     job1.cancel();
     job1 = null;
