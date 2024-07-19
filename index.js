@@ -46,9 +46,9 @@ async function run() {
 //   // run();
 //   console.log("inside timeout")
 // }, 10000);
-// schedule.scheduleJob("*/10 * * * * *",  ()=>{
-//   console.log("inside shedule job ",new Date())
-// })
+schedule.scheduleJob("*/10 * * * * *",  ()=>{
+  console.log("inside shedule job ",new Date())
+})
 
 let job1 = null;
 
