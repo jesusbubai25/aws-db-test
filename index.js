@@ -7,7 +7,7 @@ const { userStationList } = require("./utils/API");
 const Plant = require("./models/energyGenerationSchema");
 const app = express();
 require("dotenv").config({ path: ".env" });
-const schedule = require("node-schedule");
+// const schedule = require("node-schedule");
 
 app.use(cors());
 app.use(express.json());
@@ -17,22 +17,22 @@ connectToDatabase();
 
 async function run() {
   try {
-    // console.log("wait fetching api");
+    console.log("wait fetching api");
     const res = await fetchApi(userStationList);
     let data = res?.page?.records;
     if (data) {
-      // console.log("Data got from api");
-      // console.log("Data size is ", data?.length);
+      console.log("Data got from api");
+      console.log("Data size is ", data?.length);
       for (let e of data) {
         await Plant.create({
           timeStamp: e?.dataTimestampStr,
           energyGeneration: e?.dayEnergy,
           powerGeneration: e?.power,
         });
-        // console.log("Document created ");
+        console.log("Document created ");
       }
     } else {
-      // console.log("Error: data not found from api");
+      console.log("Error: data not found from api");
     }
   } catch (error) {
     console.log(
@@ -44,7 +44,7 @@ async function run() {
 
 setInterval(() => {
   run();
-}, 30000);
+}, 10000);
 
 // let job1 = null;
 
