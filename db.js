@@ -15,7 +15,7 @@ module.exports.connectToDatabase = () => {
 module.exports.connectToDatabase2 = () => {
   mongoose
     .connect(
-      "mongodb://sidh1234:sidh1234@docdb-cluster-01.cluster-crgmmsg0es4i.ap-south-1.docdb.amazonaws.com:27017/plantData/?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
+      "mongodb://sidh1234:sidh1234@docdb-cluster-01.cluster-crgmmsg0es4i.ap-south-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
     )
     .then((res) =>
       console.log(
