@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(body_parser.urlencoded({ extended: true }));
 
-connectToDatabase();
+// connectToDatabase();
 
 async function run() {
   try {
