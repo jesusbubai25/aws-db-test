@@ -45,23 +45,12 @@ async function run() {
 async function update() {
   let document = await Plant.findById("66a7c0e95c9bc3490b06d52a");
   console.log("Document is ", document);
-
-  document = await Plant.updateOne(
-    {
-      timeStamp:"29/07/2024 19:06:23 (UTC+05:30)"
-    },
-    {
-      powerGeneration:5
-    },{
-      new:true
-    }
-  );
-  console.log("updated ",document)
+  document = await Plant.findByIdAndDelete("66a7c0e95c9bc3490b06d52a");
   return document;
 }
-Plant.updateOne()
+
 update()
-  .then((res) => console.log("document found and updated \nDocument is ", res))
+  .then((res) => console.log("document deleted\n ", res))
   .catch((err) => console.log("Error : ", err?.message));
 
 // setInterval(() => {
