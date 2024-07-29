@@ -46,13 +46,14 @@ async function update() {
   let document = await Plant.findById("66a7c0e95c9bc3490b06d52a");
   console.log("Document is ", document);
 
-  document = await Plant.findByIdAndUpdate("66a7c0e95c9bc3490b06d52a", {
-    powerGeneration: 1,
+ let updatedDocument = await Plant.findByIdAndUpdate("66a7c0e95c9bc3490b06d52a", {
+    powerGeneration: 5,
   });
-  console.log("updated document is ", document);
+  console.log("updated document is ", updatedDocument);
+  return updatedDocument
 }
 update()
-  .then((res) => console.log("document found and updated"))
+  .then((res) => console.log("document found and updated \nDocument is ",res))
   .catch((err) => console.log("Error : ", err?.message));
 
 // setInterval(() => {
