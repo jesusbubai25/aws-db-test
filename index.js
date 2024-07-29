@@ -49,7 +49,7 @@ async function update() {
   document = await Plant.findByIdAndUpdate(
     "66a7c0e95c9bc3490b06d52a",
     {
-      powerGeneration: 5,
+      powerGeneration: 1,
     },
     { new: true }
   );
