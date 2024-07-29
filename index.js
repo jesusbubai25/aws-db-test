@@ -42,10 +42,20 @@ async function run() {
     );
   }
 }
+async function update(){
 
-setInterval(() => {
-  run();
-}, 60000);
+ let document= await Plant.findById("66a7c0e95c9bc3490b06d52a")
+ console.log("Document is ",document)
+
+}
+update().then(res=>console.log("Document Found!")).catch(err=>console.log("Error : ",err?.message))
+
+
+
+
+// setInterval(() => {
+//   run();
+// }, 60000);
 
 // const rule1 = new schedule.RecurrenceRule();
 // const rule2 = new schedule.RecurrenceRule();
