@@ -51,7 +51,7 @@ async function update() {
       timeStamp:"29/07/2024 19:06:23 (UTC+05:30)"
     },
     {
-      powerGeneration:1
+      powerGeneration:5
     },{
       new:true
     }
