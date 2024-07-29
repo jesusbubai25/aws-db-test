@@ -2,19 +2,19 @@ const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const body_parser = require("body-parser");
-const connectToDatabase = require("./db");
 const { fetchApi } = require("./utils/fetchPlantApi");
 const { userStationList } = require("./utils/API");
 const Plant = require("./models/energyGenerationSchema");
 const app = express();
 require("dotenv").config({ path: ".env" });
 const schedule = require("node-schedule");
+const { connectToDatabase, connectToDatabase2 } = require("./db");
 
 app.use(cors());
 app.use(express.json());
 app.use(body_parser.urlencoded({ extended: true }));
 
-// connectToDatabase();
+connectToDatabase2();
 
 async function run() {
   try {
@@ -43,33 +43,21 @@ async function run() {
   }
 }
 
-// setInterval(() => {
-//   run();
-// }, 10000);
+setInterval(() => {
+  run();
+}, 60000);
 
-mongoose
-  .connect(
-    "mongodb://sidh1234:sidh1234@docdb-cluster-01.cluster-crgmmsg0es4i.ap-south-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
-  )
-  .then((res) =>
-    console.log(
-      "Connected to database successfully! \n Host is ",
-      res.connection.host
-    )
-  )
-  .catch((err) => console.log("Error:", err?.message));
+// const rule1 = new schedule.RecurrenceRule();
+// const rule2 = new schedule.RecurrenceRule();
+// rule1.tz = "Etc/UTC";
+// rule2.tz = "Etc/UTC";
+// rule1.hour = 1;
+// rule1.minute = 25;
 
-const rule1 = new schedule.RecurrenceRule();
-const rule2 = new schedule.RecurrenceRule();
-rule1.tz = "Etc/UTC";
-rule2.tz = "Etc/UTC";
-rule1.hour = 1;
-rule1.minute = 25;
+// rule2.hour = 13;
+// rule2.minute = 5;
 
-rule2.hour = 13;
-rule2.minute = 5;
-
-let job1 = null;
+// let job1 = null;
 
 // schedule.scheduleJob(rule1, function () {
 //   if (job1) {
