@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const body_parser = require("body-parser");
@@ -42,53 +41,43 @@ async function run() {
     );
   }
 }
-async function update() {
-  let document = await Plant.findById("66a7c0e95c9bc3490b06d52a");
-  console.log("Document is ", document);
-  document = await Plant.findByIdAndDelete("66a7c0e95c9bc3490b06d52a");
-  return document;
-}
-
-update()
-  .then((res) => console.log("document deleted\n ", res))
-  .catch((err) => console.log("Error : ", err?.message));
 
 // setInterval(() => {
 //   run();
-// }, 60000);
+// }, 10000);
 
-// const rule1 = new schedule.RecurrenceRule();
-// const rule2 = new schedule.RecurrenceRule();
-// rule1.tz = "Etc/UTC";
-// rule2.tz = "Etc/UTC";
-// rule1.hour = 1;
-// rule1.minute = 25;
+const rule1 = new schedule.RecurrenceRule();
+const rule2 = new schedule.RecurrenceRule();
+rule1.tz = "Etc/UTC";
+rule2.tz = "Etc/UTC";
+rule1.hour = 0;
+rule1.minute = 20;
 
-// rule2.hour = 13;
-// rule2.minute = 5;
+rule2.hour = 13;
+rule2.minute = 0;
 
-// let job1 = null;
+let job1 = null;
 
-// schedule.scheduleJob(rule1, function () {
-//   if (job1) {
-//     console.log("Fetching plant data job has already been started");
-//   } else {
-//     console.log("Fetching plant data job has been started");
-//     job1 = schedule.scheduleJob("*/5 * * * *", function () {
-//       run();
-//     });
-//   }
-// });
+schedule.scheduleJob(rule1, function () {
+  if (job1) {
+    console.log("Fetching plant data job has already been started");
+  } else {
+    console.log("Fetching plant data job has been started");
+    job1 = schedule.scheduleJob("*/1 * * * *", function () {
+      run();
+    });
+  }
+});
 
-// schedule.scheduleJob(rule2, function () {
-//   if (job1) {
-//     job1.cancel();
-//     job1 = null;
-//     console.log("Fetching plant data job has been cancelled");
-//   } else {
-//     console.log("Fetching plant data job has not been started yet");
-//   }
-// });
+schedule.scheduleJob(rule2, function () {
+  if (job1) {
+    job1.cancel();
+    job1 = null;
+    console.log("Fetching plant data job has been cancelled");
+  } else {
+    console.log("Fetching plant data job has not been started yet");
+  }
+});
 
 app.get("/data", async (req, res) => {
   res.status(200).json({ message: "Getting response", sucess: true });
