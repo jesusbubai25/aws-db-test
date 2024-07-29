@@ -42,16 +42,18 @@ async function run() {
     );
   }
 }
-async function update(){
+async function update() {
+  let document = await Plant.findById("66a7c0e95c9bc3490b06d52a");
+  console.log("Document is ", document);
 
- let document= await Plant.findById("66a7c0e95c9bc3490b06d52a")
- console.log("Document is ",document)
-
+  document = await Plant.findByIdAndUpdate("66a7c0e95c9bc3490b06d52a", {
+    powerGeneration: 1,
+  });
+  console.log("updated document is ", document);
 }
-update().then(res=>console.log("Document Found!")).catch(err=>console.log("Error : ",err?.message))
-
-
-
+update()
+  .then((res) => console.log("document found and updated"))
+  .catch((err) => console.log("Error : ", err?.message));
 
 // setInterval(() => {
 //   run();
