@@ -47,7 +47,6 @@ async function run() {
 //   run();
 // }, 10000);
 
-<<<<<<< HEAD
 mongoose
   .connect(
     "mongodb://sidh1234:sidh1234@docdb-cluster-01.cluster-crgmmsg0es4i.ap-south-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
@@ -59,12 +58,6 @@ mongoose
     )
   )
   .catch((err) => console.log("Error:", err?.message));
-=======
-    mongoose.connect(
-      "mongodb://sidh1234:sidh@docdb-cluster-01.cluster-crgmmsg0es4i.ap-south-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
-    ).then(res=>console.log("Connected to database successfully! \n Host is ",res.connection.host))
-    .catch(err=>console.log("Error:",err?.message))
->>>>>>> c303c1695fe732ab13f0253162e1a1f0f7a52a80
 
 const rule1 = new schedule.RecurrenceRule();
 const rule2 = new schedule.RecurrenceRule();
