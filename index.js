@@ -55,10 +55,8 @@ async function update() {
     },{
       new:true
     }
-    ,function(err,docs){
-      console.log("updated ",docs)
-    }
   );
+  console.log("updated ",document)
   return document;
 }
 update()
