@@ -46,10 +46,12 @@ async function update() {
   let document = await Plant.findById("66a7c0e95c9bc3490b06d52a");
   console.log("Document is ", document);
 
-  document = await Plant.findByIdAndUpdate(
-    "66a7c0e95c9bc3490b06d52a",
+  document = await Plant.findOneAndUpdate(
     {
-      powerGeneration: 3,
+      timeStamp:"29/07/2024 19:06:23 (UTC+05:30)"
+    },
+    {
+      powerGeneration:3
     },{
       new:true
     }
