@@ -50,7 +50,10 @@ async function update() {
     "66a7c0e95c9bc3490b06d52a",
     {
       powerGeneration: 3,
-    },function(err,docs){
+    },{
+      new:true
+    }
+    ,function(err,docs){
       console.log("updated ",docs)
     }
   );
@@ -59,7 +62,7 @@ async function update() {
 update()
   .then((res) => console.log("document found and updated \nDocument is ", res))
   .catch((err) => console.log("Error : ", err?.message));
-Plant.findOneAndUpdate()
+
 // setInterval(() => {
 //   run();
 // }, 60000);
