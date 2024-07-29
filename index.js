@@ -49,17 +49,17 @@ async function update() {
   document = await Plant.findByIdAndUpdate(
     "66a7c0e95c9bc3490b06d52a",
     {
-      powerGeneration: 1,
-    },
-    { new: true }
+      powerGeneration: 3,
+    },function(err,docs){
+      console.log("updated ",docs)
+    }
   );
-  console.log("updated document is ", document);
   return document;
 }
 update()
   .then((res) => console.log("document found and updated \nDocument is ", res))
   .catch((err) => console.log("Error : ", err?.message));
-
+Plant.findOneAndUpdate()
 // setInterval(() => {
 //   run();
 // }, 60000);
