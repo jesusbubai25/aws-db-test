@@ -42,6 +42,8 @@ async function run() {
   }
 }
 
+
+
 // setInterval(() => {
 //   run();
 // }, 10000);
@@ -50,7 +52,7 @@ const rule1 = new schedule.RecurrenceRule();
 const rule2 = new schedule.RecurrenceRule();
 rule1.tz = "Etc/UTC";
 rule2.tz = "Etc/UTC";
-rule1.hour = 5;
+rule1.hour = 0;
 rule1.minute = 20;
 
 rule2.hour = 13;
