@@ -50,7 +50,7 @@ const rule1 = new schedule.RecurrenceRule();
 const rule2 = new schedule.RecurrenceRule();
 rule1.tz = "Etc/UTC";
 rule2.tz = "Etc/UTC";
-rule1.hour = 0;
+rule1.hour = 5;
 rule1.minute = 20;
 
 rule2.hour = 13;
@@ -63,7 +63,7 @@ schedule.scheduleJob(rule1, function () {
     console.log("Fetching plant data job has already been started");
   } else {
     console.log("Fetching plant data job has been started");
-    job1 = schedule.scheduleJob("*/1 * * * *", function () {
+    job1 = schedule.scheduleJob("*/5 * * * *", function () {
       run();
     });
   }
