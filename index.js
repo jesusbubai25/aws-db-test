@@ -29,10 +29,10 @@ async function run() {
           energyGeneration: e?.dayEnergy,
           powerGeneration: e?.power,
         });
-        console.log("Document created ");
+        console.log(`Document created\nDate And Time is ${getLocalDateTime()}`);
       }
     } else {
-      console.log("Error: data not found from api");
+      console.log(`Error: data not found from api\nDate And Time is ${getLocalDateTime()}`);
     }
   } catch (error) {
     console.log(
@@ -42,7 +42,15 @@ async function run() {
   }
 }
 
-
+function getLocalDateTime() {
+  let date = new Date();
+  let dateStr = date
+    .toLocaleDateString()
+    ?.split("/")
+    ?.map((e) => e.padStart(2, "0"))
+    .join("/");
+  return dateStr + " " + date.toLocaleTimeString();
+}
 
 // setInterval(() => {
 //   run();
@@ -62,9 +70,13 @@ let job1 = null;
 
 schedule.scheduleJob(rule1, function () {
   if (job1) {
-    console.log("Fetching plant data job has already been started");
+    console.log(
+      `Fetching plant data job has already been started\nDate And Time is ${getLocalDateTime()}`
+    );
   } else {
-    console.log("Fetching plant data job has been started");
+    console.log(
+      `Fetching plant data job has been started\nDate And Time is ${getLocalDateTime()}`
+    );
     job1 = schedule.scheduleJob("*/5 * * * *", function () {
       run();
     });
@@ -75,9 +87,13 @@ schedule.scheduleJob(rule2, function () {
   if (job1) {
     job1.cancel();
     job1 = null;
-    console.log("Fetching plant data job has been cancelled");
+    console.log(
+      `Fetching plant data job has been cancelled\nDate And Time is ${getLocalDateTime()}`
+    );
   } else {
-    console.log("Fetching plant data job has not been started yet");
+    console.log(
+      `Fetching plant data job has not been started yet\nDate And Time is ${getLocalDateTime()}`
+    );
   }
 });
 
